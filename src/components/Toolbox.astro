@@ -1,0 +1,64 @@
+---
+import { skills } from '../data/site';
+---
+
+<div class="toolbox">
+	{
+		skills.map(({ group, items }) => (
+			<div class="group">
+				<h4>{group}</h4>
+				<ul>
+					{items.map((item) => (
+						<li>{item}</li>
+					))}
+				</ul>
+			</div>
+		))
+	}
+</div>
+
+<style>
+	.toolbox {
+		display: grid;
+		gap: 2rem;
+	}
+
+	h4 {
+		margin-bottom: 0.75rem;
+		font-family: var(--font-brand);
+		font-size: var(--text-sm);
+		font-weight: 600;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: var(--accent-dark);
+	}
+
+	ul {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+		list-style: none;
+		padding: 0;
+	}
+
+	li {
+		padding: 0.4em 0.9em;
+		border: 1px solid var(--gray-800);
+		border-radius: 999rem;
+		background: var(--gray-999_40);
+		color: var(--gray-200);
+		font-size: var(--text-sm);
+		line-height: 1.2;
+	}
+
+	@media (min-width: 50em) {
+		.toolbox {
+			grid-template-columns: 1fr 1fr;
+			gap: 2.5rem 4rem;
+		}
+
+		li {
+			font-size: var(--text-base);
+		}
+	}
+</style>

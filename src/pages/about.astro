@@ -1,50 +1,93 @@
 ---
 import ContactCTA from '../components/ContactCTA.astro';
 import Hero from '../components/Hero.astro';
+import PolaroidRow from '../components/PolaroidRow.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { site } from '../data/site';
 ---
 
-<BaseLayout title={`About | ${site.name}`} description={`About ${site.name}`}>
+<BaseLayout
+	title={`About | ${site.name}`}
+	description={`${site.name}’s path into software, approach to teamwork, and life outside work in Virginia Beach.`}
+>
 	<div class="stack gap-20">
 		<main class="wrapper about">
-			<Hero title="About" tagline="A little more about me and how I got here." />
+			<Hero title="About" tagline="The person behind the computer." />
 
 			<section>
-				<h2 class="section-title">Background</h2>
+				<h2 class="section-title">How I got here</h2>
 				<div class="content">
 					<p>
-						I’m a senior iOS engineer at Toast on the Core Platform team for Toast Local, the
-						consumer app that connects diners with their local restaurants. Before Toast, I built iOS
-						apps at Fliff and Addepar, and I started my career as a software engineer at Capital One.
+						I’ve loved Apple products for as long as I can remember. I’ve owned every iPhone except
+						the very first one, so it’s probably no surprise I ended up building apps for them.
 					</p>
 					<p>
-						Over eight years, much of it in fintech, I’ve found I care as much about how teams build
-						as what they ship. I’ve done platform and developer-experience work along the way, and
-						I’m always looking for ways to help engineers ship good apps faster.
+						I didn’t start out in tech, though. I began college studying Intelligence Analysis, and
+						along the way I realized I could pair my communication and presentation skills with
+						programming. I wanted to be an engineer who could also explain, present, and lead, so I
+						switched to Computer Science at James Madison University.
 					</p>
 					<p>
-						I recently served as acting engineering manager at Toast, and I still help lead the team:
-						roadmap planning, skip-level syncs with product and design, and owning large projects end
-						to end.
+						Two summers at NASA Langley sealed it. One of my favorite memories is soldering a
+						temperature sensor onto a fixed-wing drone, then watching it stream live engine
+						temperatures back to us while it flew.
+					</p>
+					<p>
+						From there I spent three years at Capital One, then went deep on native iOS at Addepar,
+						Fliff, and now Toast.
 					</p>
 				</div>
 			</section>
 			<section>
-				<h2 class="section-title">Education</h2>
+				<h2 class="section-title">Why mobile</h2>
 				<div class="content">
-					<p>BS in Computer Science, James Madison University</p>
+					<p>
+						I love building for the device people carry everywhere.
+					</p>
+					<p>
+						Native mobile has challenges you don’t find anywhere else: form factors, app performance,
+						battery life, privacy, and releases you can’t just roll back. That’s what makes it fun. And every
+						June and September feel like the holidays, with WWDC, new SDKs, and new products to dig into.
+					</p>
+				</div>
+			</section>
+			<section>
+				<h2 class="section-title">How I work</h2>
+				<div class="content">
+					<p>
+						I’m collaborative and low-ego, and I get more out of seeing teammates succeed than out
+						of my own wins. Great software is a team effort, and I like bringing everyone along for
+						the ride, whether that’s sharing context, presenting an idea, or building tools that
+						make everyone’s day a little easier.
+					</p>
 				</div>
 			</section>
 			<section>
 				<h2 class="section-title">Outside work</h2>
 				<div class="content">
 					<p>
-						I live in {site.location}. When I’m not working, I’m usually running, out on a mountain
-						bike trail, or playing guitar.
+						I was born and raised in Virginia Beach, and a couple of years into my career I moved
+						back to be close to family. Most of my free time goes to playing with my kids and
+						spending time with my wife.
+					</p>
+					<p>
+						My job keeps me at a computer, so I make up for it outside: long-distance and endurance
+						running, downhill mountain biking, snowboarding, and just about any sport or activity I
+						can find.
 					</p>
 				</div>
 			</section>
+			<div class="photos">
+				<PolaroidRow
+					photos={[
+						{ caption: 'Best coworker', photo: '/assets/about/desk.jpg' },
+						{ caption: 'Aquarium days', photo: '/assets/about/aquarium.jpg' },
+						{ caption: 'Bike rides', photo: '/assets/about/bikes.jpg' },
+						{ caption: 'Pony rides', photo: '/assets/about/horse.jpg' },
+						{ caption: 'Time outside', photo: '/assets/about/trail.jpg' },
+					]}
+				/>
+			</div>
 		</main>
 
 		<ContactCTA />
@@ -58,10 +101,8 @@ import { site } from '../data/site';
 		gap: 3.5rem;
 	}
 
-	img {
-		margin-top: 1.5rem;
-		border-radius: 1.5rem;
-		box-shadow: var(--shadow-md);
+	.photos {
+		margin-top: 1rem;
 	}
 
 	section {
@@ -79,6 +120,11 @@ import { site } from '../data/site';
 
 	.content {
 		grid-column: 2 / 4;
+		max-width: 65ch;
+	}
+
+	.content > :global(p + p) {
+		margin-top: 1rem;
 	}
 
 	.content :global(a) {
@@ -100,6 +146,10 @@ import { site } from '../data/site';
 
 		.about > :global(:first-child) {
 			grid-column-start: 2;
+		}
+
+		.photos {
+			grid-column: 1 / -1;
 		}
 
 		section {

@@ -13,6 +13,20 @@ export const site = {
 	},
 };
 
+// Shown in the "Skills" section on the home page.
+export const skills = [
+	{ group: 'Languages', items: ['Swift', 'Kotlin', 'Java', 'Python', 'JavaScript', 'C'] },
+	{
+		group: 'Apple platforms',
+		items: ['SwiftUI', 'UIKit', 'Swift Concurrency', 'Combine', 'Swift Charts', 'Swift Testing', 'XCTest'],
+	},
+	{
+		group: 'Tooling & infrastructure',
+		items: ['GitHub Actions', 'fastlane', 'Xcode Cloud', 'GraphQL', 'Firebase', 'Sentry', 'AWS'],
+	},
+	{ group: 'AI tooling', items: ['Claude Code', 'MCP', 'Custom agents', 'Claude Skills'] },
+];
+
 // Shown as Polaroids in the "Outside work" section on the home page.
 // Drop a photo at public/assets/interests/<file> and it replaces the placeholder.
 export const interests = [
