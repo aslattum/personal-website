@@ -1,0 +1,82 @@
+---
+import fs from 'node:fs';
+
+interface Props {
+	caption: string;
+	/** Path under public/, e.g. /assets/interests/running.jpg */
+	photo?: string;
+}
+
+const { caption, photo } = Astro.props;
+
+// Fall back to a film-toned placeholder until the photo file exists.
+const hasPhoto = photo && fs.existsSync(`public${photo}`);
+---
+
+<figure class="polaroid">
+	{
+		hasPhoto ? (
+			<img src={photo} alt={caption} loading="lazy" decoding="async" />
+		) : (
+			<div class="placeholder" aria-hidden="true" />
+		)
+	}
+	<figcaption>{caption}</figcaption>
+</figure>
+
+<style>
+	.polaroid {
+		--frame: #f4f2ec;
+
+		display: flex;
+		flex-direction: column;
+		gap: 0.4rem;
+		margin: 0;
+		padding: 0.4rem 0.4rem 0;
+		background: var(--frame);
+		border-radius: 0.25rem;
+		box-shadow:
+			0 1px 2px rgba(0, 0, 0, 0.35),
+			0 12px 28px rgba(0, 0, 0, 0.45);
+	}
+
+	img,
+	.placeholder {
+		display: block;
+		width: 100%;
+		aspect-ratio: 1;
+		object-fit: cover;
+		/* Slightly faded, warm look of instant film. */
+		filter: saturate(0.85) contrast(0.95) sepia(0.12);
+	}
+
+	.placeholder {
+		background:
+			url('/assets/backgrounds/noise.png') top center/160px repeat,
+			radial-gradient(circle at 50% 40%, transparent 40%, rgba(0, 0, 0, 0.35)),
+			linear-gradient(160deg, #c9d6e8, #8aa4c8 45%, #3b4f73);
+		background-blend-mode: overlay, normal, normal;
+	}
+
+	figcaption {
+		padding: 0.15rem 0.25rem 0.75rem;
+		text-align: center;
+		font-family: 'Caveat', cursive;
+		font-size: var(--text-base);
+		font-weight: 500;
+		line-height: 1;
+		color: #2a2a2e;
+	}
+
+	@media (min-width: 50em) {
+		.polaroid {
+			gap: 1rem;
+			padding: 1rem 1rem 0;
+		}
+
+		figcaption {
+			padding-bottom: 1.75rem;
+			font-size: var(--text-2xl);
+		}
+	}
+</style>

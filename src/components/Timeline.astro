@@ -1,0 +1,145 @@
+---
+// Vertical timeline of work entries, newest first. On wide screens the entries
+// alternate sides of a center line (starting on the left) and overlap
+// vertically so the eye follows the line top to bottom.
+---
+
+<ol class="timeline">
+	<slot />
+</ol>
+
+<style>
+	.timeline {
+		--line-x: 0.5rem;
+		--dot-size: 1rem;
+		--dot-top: 2.5rem;
+		--gutter: 2.5rem;
+
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		gap: 2.5rem;
+		list-style: none;
+		padding: 0;
+	}
+
+	/* The center line. */
+	.timeline::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: var(--line-x);
+		width: 2px;
+		transform: translateX(-50%);
+		background: linear-gradient(180deg, var(--accent-dark), var(--accent-regular) 70%, transparent);
+		opacity: 0.6;
+	}
+
+	.timeline > :global(li) {
+		position: relative;
+		padding-left: calc(var(--line-x) + var(--gutter));
+	}
+
+	/* The dot on the line for each entry. */
+	.timeline > :global(li)::before {
+		content: '';
+		position: absolute;
+		z-index: 1;
+		top: var(--dot-top);
+		left: var(--line-x);
+		width: var(--dot-size);
+		height: var(--dot-size);
+		transform: translate(-50%, -50%);
+		border-radius: 999rem;
+		background: var(--gradient-accent);
+		box-shadow:
+			0 0 0 4px var(--gray-999),
+			0 0 0 5px var(--accent-regular);
+	}
+
+	/* Connector from the dot to the card. */
+	.timeline > :global(li)::after {
+		content: '';
+		position: absolute;
+		top: var(--dot-top);
+		left: var(--line-x);
+		width: var(--gutter);
+		height: 2px;
+		transform: translateY(-50%);
+		background: var(--accent-regular);
+		opacity: 0.6;
+	}
+
+	/* The newest entry gets a pulsing dot. */
+	.timeline > :global(li:first-child)::before {
+		animation: pulse 2.4s ease-out infinite;
+	}
+
+	@keyframes pulse {
+		0% {
+			box-shadow:
+				0 0 0 4px var(--gray-999),
+				0 0 0 5px var(--accent-regular),
+				0 0 0 5px var(--accent-overlay);
+		}
+		100% {
+			box-shadow:
+				0 0 0 4px var(--gray-999),
+				0 0 0 5px var(--accent-regular),
+				0 0 0 18px transparent;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.timeline > :global(li:first-child)::before {
+			animation: none;
+		}
+	}
+
+	@media (min-width: 50em) {
+		.timeline {
+			--line-x: 50%;
+			--dot-top: 4rem;
+			--gutter: 3rem;
+			--overlap: 5rem;
+
+			gap: 0;
+		}
+
+		.timeline > :global(li) {
+			width: 50%;
+		}
+
+		.timeline > :global(li + li) {
+			margin-top: calc(-1 * var(--overlap));
+		}
+
+		/* Odd entries (1st, 3rd, …) sit on the left of the line. */
+		.timeline > :global(li:nth-child(odd)) {
+			align-self: flex-start;
+			padding-left: 0;
+			padding-right: var(--gutter);
+		}
+
+		/* Even entries sit on the right. */
+		.timeline > :global(li:nth-child(even)) {
+			align-self: flex-end;
+			padding-left: var(--gutter);
+		}
+
+		.timeline > :global(li:nth-child(odd))::before {
+			left: 100%;
+		}
+
+		.timeline > :global(li:nth-child(odd))::after {
+			left: auto;
+			right: 0;
+		}
+
+		.timeline > :global(li:nth-child(even))::before,
+		.timeline > :global(li:nth-child(even))::after {
+			left: 0;
+		}
+	}
+</style>

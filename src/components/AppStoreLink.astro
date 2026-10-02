@@ -1,0 +1,45 @@
+---
+import Icon from './Icon.astro';
+
+interface Props {
+	href: string;
+}
+
+const { href } = Astro.props;
+---
+
+<a class="app-store" href={href} target="_blank" rel="noopener noreferrer">
+	<Icon icon="apple-logo" size="1.1em" />
+	<span>App Store</span>
+	<Icon icon="arrow-up-right" size="0.9em" />
+</a>
+
+<style>
+	.app-store {
+		position: relative;
+		z-index: 1;
+		display: inline-flex;
+		align-items: center;
+		gap: 0.4em;
+		padding: 0.4em 0.85em;
+		border: 1px solid var(--gray-700);
+		border-radius: 999rem;
+		background: var(--gray-999);
+		color: var(--gray-200);
+		font-family: var(--font-brand);
+		font-size: var(--text-sm);
+		font-weight: 500;
+		line-height: 1;
+		text-decoration: none;
+		white-space: nowrap;
+		transition:
+			color var(--theme-transition),
+			border-color var(--theme-transition);
+	}
+
+	.app-store:hover,
+	.app-store:focus-visible {
+		color: var(--gray-0);
+		border-color: var(--accent-dark);
+	}
+</style>
