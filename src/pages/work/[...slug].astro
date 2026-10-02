@@ -4,7 +4,7 @@ import { type CollectionEntry, getCollection, render } from 'astro:content';
 import ContactCTA from '../../components/ContactCTA.astro';
 import Hero from '../../components/Hero.astro';
 import Icon from '../../components/Icon.astro';
-import AppStoreLink from '../../components/AppStoreLink.astro';
+import LinkPill from '../../components/LinkPill.astro';
 import Pill from '../../components/Pill.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { site } from '../../data/site';
@@ -34,12 +34,17 @@ const { Content } = await render(entry);
 		<div class="stack gap-15">
 			<header>
 				<div class="wrapper stack gap-2">
-					<a class="back-link" href="/work/"><Icon icon="arrow-left" /> Experience</a>
+					<a class="back-link" href="/#experience"><Icon icon="arrow-left" /> Experience</a>
 					<Hero title={entry.data.company} tagline={`${entry.data.role}, ${years(entry)}`} align="start">
 						<div class="details">
 							<div class="tags">
 								{entry.data.tags.map((t) => <Pill>{t}</Pill>)}
-								{entry.data.appStore && <AppStoreLink href={entry.data.appStore} />}
+								{entry.data.appStore && (
+									<LinkPill href={entry.data.appStore} icon="apple-logo" label="App Store" />
+								)}
+								{entry.data.github && (
+									<LinkPill href={entry.data.github} icon="github-logo" label="GitHub" />
+								)}
 							</div>
 							<p class="description">{entry.data.description}</p>
 						</div>
@@ -97,6 +102,14 @@ const { Content } = await render(entry);
 
 	.content > :global(* + *) {
 		margin-top: 1rem;
+	}
+
+	.content :global(li + li) {
+		margin-top: 0.75rem;
+	}
+
+	.content :global(li::marker) {
+		color: var(--accent-dark);
 	}
 
 	.content :global(h1),

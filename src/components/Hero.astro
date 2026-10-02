@@ -1,17 +1,27 @@
 ---
 interface Props {
 	title: string;
-	tagline?: string;
+	/** One paragraph, or several shown with space between them. */
+	tagline?: string | string[];
 	align?: 'start' | 'center';
 }
 
 const { align = 'center', tagline, title } = Astro.props;
+const paragraphs = tagline ? [tagline].flat() : [];
 ---
 
 <div class:list={['hero stack gap-4', align]}>
 	<div class="stack gap-2">
 		<h1 class="title">{title}</h1>
-		{tagline && <p class="tagline">{tagline}</p>}
+		{
+			paragraphs.length > 0 && (
+				<div class="taglines stack gap-4">
+					{paragraphs.map((p) => (
+						<p class="tagline">{p}</p>
+					))}
+				</div>
+			)
+		}
 	</div>
 	<slot />
 </div>
@@ -26,6 +36,14 @@ const { align = 'center', tagline, title } = Astro.props;
 	.tagline {
 		max-width: 37ch;
 		margin-inline: auto;
+	}
+
+	.taglines {
+		gap: 1.25rem;
+	}
+
+	.taglines .tagline {
+		max-width: 46ch;
 	}
 
 	.title {

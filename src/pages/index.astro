@@ -3,11 +3,9 @@ import fs from 'node:fs';
 import { site, interests } from '../data/site';
 import { getWork } from '../data/work';
 // Component Imports
-import CallToAction from '../components/CallToAction.astro';
 // Page section components
 import ContactCTA from '../components/ContactCTA.astro';
 import Hero from '../components/Hero.astro';
-import Icon from '../components/Icon.astro';
 import Polaroid from '../components/Polaroid.astro';
 import PortfolioPreview from '../components/PortfolioPreview.astro';
 import Skills from '../components/Skills.astro';
@@ -15,7 +13,7 @@ import Timeline from '../components/Timeline.astro';
 // Layout import — provides basic page elements: <head>, <nav>, <footer> etc.
 import BaseLayout from '../layouts/BaseLayout.astro';
 
-const projects = (await getWork()).slice(0, 4);
+const projects = await getWork();
 
 // Add your photo at public/assets/portrait.jpg and it will appear in the hero.
 const hasPortrait = fs.existsSync('public/assets/portrait.jpg');
@@ -29,8 +27,12 @@ const hasPortrait = fs.existsSync('public/assets/portrait.jpg');
 		<div class="wrapper stack gap-8 lg:gap-20">
 			<header class:list={['hero', { 'no-portrait': !hasPortrait }]}>
 				<Hero
-					title={`Hi, I’m ${site.name}`}
-					tagline={`I’m a senior software engineer who specializes in native iOS. I’m a polyglot at heart, though, and I enjoy picking up whatever language or platform a problem needs. I’m based in ${site.location}.`}
+					title="Hi, I’m Adam"
+					tagline={[
+						'I’m a senior software engineer who specializes in iOS and cares about building consumer-grade apps that are a joy to use.',
+						'I’m a polyglot at heart, with experience across iOS, Android, web, backend, and cloud infrastructure, and I’m happiest wherever the hard problem is.',
+						`I’m based in ${site.location}.`,
+					]}
 					align="start"
 				/>
 
@@ -45,10 +47,10 @@ const hasPortrait = fs.existsSync('public/assets/portrait.jpg');
 		</div>
 
 		<main class="wrapper stack gap-20 lg:gap-48">
-			<section class="section with-background with-cta">
+			<section id="experience" class="section with-background">
 				<header class="section-header stack gap-2 lg:gap-4">
 					<h3>Experience</h3>
-					<p>Eight years building iOS apps, from fintech to consumer apps.</p>
+					<p>From flight software at NASA to apps people use every day.</p>
 				</header>
 
 				<div class="gallery">
@@ -62,19 +64,12 @@ const hasPortrait = fs.existsSync('public/assets/portrait.jpg');
 						}
 					</Timeline>
 				</div>
-
-				<div class="cta">
-					<CallToAction href="/work/">
-						All experience
-						<Icon icon="arrow-right" size="1.2em" />
-					</CallToAction>
-				</div>
 			</section>
 
 			<section class="section with-background bg-variant">
 				<header class="section-header stack gap-2 lg:gap-4">
 					<h3>Outside work</h3>
-					<p>When I’m not building apps, I’m usually doing one of these.</p>
+					<p>When I’m away from the keyboard, this is where you’ll find me.</p>
 				</header>
 
 				<ul class="gallery polaroids">
@@ -187,10 +182,6 @@ const hasPortrait = fs.existsSync('public/assets/portrait.jpg');
 			gap: 5rem;
 		}
 
-		.section.with-cta {
-			grid-template-areas: 'header header header cta' 'gallery gallery gallery gallery';
-		}
-
 		.section-header {
 			grid-area: header;
 			font-size: var(--text-lg);
@@ -200,17 +191,8 @@ const hasPortrait = fs.existsSync('public/assets/portrait.jpg');
 			font-size: var(--text-4xl);
 		}
 
-		.with-cta .section-header {
-			justify-self: flex-start;
-			text-align: left;
-		}
-
 		.gallery {
 			grid-area: gallery;
-		}
-
-		.cta {
-			grid-area: cta;
 		}
 	}
 

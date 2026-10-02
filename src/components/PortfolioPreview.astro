@@ -1,7 +1,7 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import { years } from '../data/work';
-import AppStoreLink from './AppStoreLink.astro';
+import LinkPill from './LinkPill.astro';
 
 interface Props {
 	project: CollectionEntry<'work'>;
@@ -24,11 +24,11 @@ const { data, id } = project;
 				<p class="company">
 					<a class="card-link" href={`/work/${id}/`}>{data.company}</a>
 				</p>
-				<p class="role">{data.role}</p>
 				<p class="desc">{data.description}</p>
-				{data.appStore && (
+				{(data.appStore || data.github) && (
 					<div class="links">
-						<AppStoreLink href={data.appStore} />
+						{data.appStore && <LinkPill href={data.appStore} icon="apple-logo" label="App Store" />}
+						{data.github && <LinkPill href={data.github} icon="github-logo" label="GitHub" />}
 					</div>
 				)}
 			</div>
@@ -119,10 +119,6 @@ const { data, id } = project;
 		line-height: 1.1;
 	}
 
-	.role {
-		font-size: var(--text-md);
-		color: var(--gray-300);
-	}
 
 	.desc {
 		margin-top: auto;

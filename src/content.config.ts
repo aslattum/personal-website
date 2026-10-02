@@ -15,6 +15,8 @@ export const collections = {
 			tags: z.array(z.string()).default([]),
 			// Link to the app on the App Store, shown on cards and the role page.
 			appStore: z.string().url().optional(),
+			// Link to a public code repository for the work.
+			github: z.string().url().optional(),
 			img: z.string().optional(),
 			img_alt: z.string().optional(),
 		}),

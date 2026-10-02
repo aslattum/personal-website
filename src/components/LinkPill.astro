@@ -1,21 +1,25 @@
 ---
 import Icon from './Icon.astro';
+import type { iconPaths } from './IconPaths';
 
+/** Small outlined pill for an external link, e.g. an App Store listing or a GitHub repo. */
 interface Props {
 	href: string;
+	icon: keyof typeof iconPaths;
+	label: string;
 }
 
-const { href } = Astro.props;
+const { href, icon, label } = Astro.props;
 ---
 
-<a class="app-store" href={href} target="_blank" rel="noopener noreferrer">
-	<Icon icon="apple-logo" size="1.1em" />
-	<span>App Store</span>
+<a class="link-pill" href={href} target="_blank" rel="noopener noreferrer">
+	<Icon icon={icon} size="1.1em" />
+	<span>{label}</span>
 	<Icon icon="arrow-up-right" size="0.9em" />
 </a>
 
 <style>
-	.app-store {
+	.link-pill {
 		position: relative;
 		z-index: 1;
 		display: inline-flex;
@@ -37,8 +41,8 @@ const { href } = Astro.props;
 			border-color var(--theme-transition);
 	}
 
-	.app-store:hover,
-	.app-store:focus-visible {
+	.link-pill:hover,
+	.link-pill:focus-visible {
 		color: var(--gray-0);
 		border-color: var(--accent-dark);
 	}

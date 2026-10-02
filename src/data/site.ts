@@ -5,7 +5,7 @@ export const site = {
 	location: 'Virginia Beach, Virginia',
 	email: 'adam@slattum.app',
 	description:
-		'Adam Slattum is a senior software engineer who specializes in native iOS and works across languages and platforms.',
+		'Adam Slattum is a senior software engineer specializing in iOS, with experience across Android, web, backend, and cloud infrastructure.',
 	// Leave a link empty ('') to hide it.
 	links: {
 		github: 'https://github.com/aslattum',
@@ -18,6 +18,6 @@ export const site = {
 export const interests = [
 	{ label: 'Family', photo: '/assets/interests/family.jpg' },
 	{ label: 'Running', photo: '/assets/interests/running.jpg' },
-	{ label: 'Mountain biking', photo: '/assets/interests/mountain-biking.jpg' },
 	{ label: 'Snowboarding', photo: '/assets/interests/snowboarding.jpg' },
+	{ label: 'Mountain biking', photo: '/assets/interests/mountain-biking.jpg' },
 ];
