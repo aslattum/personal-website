@@ -10,7 +10,7 @@ tags:
   - Leadership
 ---
 
-I’m a senior mobile engineer on the Core Platform team for Toast Local, the consumer app that helps diners discover, order from, and book local restaurants.
+Toast Local is the consumer app that helps diners discover, order from, and book local restaurants, with every order going straight to the restaurant they chose.
 
 - Served as acting engineering manager for an 8-person team spanning backend, iOS, Android, and web, then kept leadership responsibilities: skip-level syncs with product and design, roadmap planning, and ownership of large projects.
 - Migrated the iOS app’s CI/CD pipeline from Jenkins to GitHub Actions, eliminating recurring multi-hour VPN outages and parallelizing workflows to speed up the merge queue by 30% and deploys by 42%.

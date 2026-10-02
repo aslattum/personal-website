@@ -8,10 +8,10 @@ interface Props {
 const { photos } = Astro.props;
 ---
 
-<ul class="polaroids">
+<ul class="polaroids" data-reveal>
 	{
-		photos.map(({ caption, photo }) => (
-			<li>
+		photos.map(({ caption, photo }, i) => (
+			<li style={`--i: ${i}`}>
 				<Polaroid caption={caption} photo={photo} />
 			</li>
 		))
@@ -70,6 +70,29 @@ const { photos } = Astro.props;
 	@media (prefers-reduced-motion: reduce) {
 		.polaroids > li {
 			transition: none;
+		}
+	}
+
+	/* With motion enabled, the photos are "dealt" onto the table one at a time
+	   when the row scrolls into view, then settle into their tilts. */
+	:global(.motion-ready) .polaroids[data-reveal] {
+		opacity: 1;
+		transform: none;
+	}
+
+	:global(.motion-ready) .polaroids:not(.is-visible) > li {
+		opacity: 0;
+	}
+
+	:global(.motion-ready) .polaroids.is-visible > li {
+		animation: deal 0.75s cubic-bezier(0.2, 0.8, 0.3, 1.15) backwards;
+		animation-delay: calc(var(--i) * 140ms);
+	}
+
+	@keyframes deal {
+		from {
+			opacity: 0;
+			transform: translateY(-5rem) rotate(calc(var(--tilt) * -2.5)) scale(1.12);
 		}
 	}
 

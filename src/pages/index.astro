@@ -39,7 +39,14 @@ const hasPortrait = fs.existsSync('public/assets/portrait.jpg');
 
 				{
 					hasPortrait && (
-						<img alt={site.name} width="480" height="620" src="/assets/portrait.jpg" />
+						<img
+							alt={site.name}
+							width="480"
+							height="620"
+							src="/assets/portrait.jpg"
+							data-enter
+							style="--enter-delay: 250ms"
+						/>
 					)
 				}
 			</header>
@@ -49,7 +56,7 @@ const hasPortrait = fs.existsSync('public/assets/portrait.jpg');
 
 		<main class="wrapper stack gap-20 lg:gap-48">
 			<section id="experience" class="section with-background">
-				<header class="section-header stack gap-2 lg:gap-4">
+				<header class="section-header stack gap-2 lg:gap-4" data-reveal>
 					<h3>Experience</h3>
 					<p>From flight software at NASA to apps people use every day.</p>
 				</header>
@@ -58,7 +65,7 @@ const hasPortrait = fs.existsSync('public/assets/portrait.jpg');
 					<Timeline>
 						{
 							projects.map((project) => (
-								<li>
+								<li data-reveal>
 									<PortfolioPreview project={project} />
 								</li>
 							))
@@ -68,7 +75,7 @@ const hasPortrait = fs.existsSync('public/assets/portrait.jpg');
 			</section>
 
 			<section class="section">
-				<header class="section-header stack gap-2 lg:gap-4">
+				<header class="section-header stack gap-2 lg:gap-4" data-reveal>
 					<h3>Skills</h3>
 					<p>The languages and tools I reach for most.</p>
 				</header>
@@ -79,7 +86,7 @@ const hasPortrait = fs.existsSync('public/assets/portrait.jpg');
 			</section>
 
 			<section class="section with-background bg-variant">
-				<header class="section-header stack gap-2 lg:gap-4">
+				<header class="section-header stack gap-2 lg:gap-4" data-reveal>
 					<h3>Outside work</h3>
 					<p>When I’m away from the keyboard, this is where you’ll find me.</p>
 				</header>

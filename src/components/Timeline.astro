@@ -34,6 +34,30 @@
 		transform: translateX(-50%);
 		background: linear-gradient(180deg, var(--accent-dark), var(--accent-regular) 70%, transparent);
 		opacity: 0.6;
+		transform-origin: top;
+	}
+
+	/* With motion enabled, the line draws itself as you scroll (--draw is set
+	   by a script in BaseLayout), and each dot and connector pops in when its
+	   entry is revealed. */
+	:global(.motion-ready) .timeline::before {
+		transform: translateX(-50%) scaleY(var(--draw, 0));
+	}
+
+	:global(.motion-ready) .timeline > :global(li)::before {
+		transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s;
+	}
+
+	:global(.motion-ready) .timeline > :global(li:not(.is-visible))::before {
+		transform: translate(-50%, -50%) scale(0);
+	}
+
+	:global(.motion-ready) .timeline > :global(li)::after {
+		transition: transform 0.4s ease 0.35s;
+	}
+
+	:global(.motion-ready) .timeline > :global(li:not(.is-visible))::after {
+		transform: translateY(-50%) scaleX(0);
 	}
 
 	.timeline > :global(li) {
@@ -69,6 +93,7 @@
 		transform: translateY(-50%);
 		background: var(--accent-regular);
 		opacity: 0.6;
+		transform-origin: left;
 	}
 
 	/* The newest entry gets a pulsing dot. */
@@ -140,6 +165,24 @@
 		.timeline > :global(li:nth-child(even))::before,
 		.timeline > :global(li:nth-child(even))::after {
 			left: 0;
+		}
+
+		/* Connectors grow out from the center line. */
+		.timeline > :global(li:nth-child(odd))::after {
+			transform-origin: right;
+		}
+
+		.timeline > :global(li:nth-child(even))::after {
+			transform-origin: left;
+		}
+
+		/* Cards slide in from their own side of the line. */
+		:global(.motion-ready) .timeline > :global(li:nth-child(odd)[data-reveal]:not(.is-visible)) {
+			transform: translateX(-2rem);
+		}
+
+		:global(.motion-ready) .timeline > :global(li:nth-child(even)[data-reveal]:not(.is-visible)) {
+			transform: translateX(2rem);
 		}
 	}
 </style>

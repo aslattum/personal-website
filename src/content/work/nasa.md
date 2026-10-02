@@ -11,7 +11,9 @@ tags:
   - Internship
 ---
 
-I spent two summers (2017 and 2018) interning at NASA Langley Research Center in Hampton, Virginia, working on [ICAROUS](https://github.com/nasa/icarous) (Independent Configurable Architecture for Reliable Operations of Unmanned Systems). It’s NASA’s open-source software architecture for building safety-centric autonomous aircraft, with capabilities like detect-and-avoid, geofencing, and autonomous resolution maneuvers.
+[ICAROUS](https://github.com/nasa/icarous) (Independent Configurable Architecture for Reliable Operations of Unmanned Systems) is NASA’s open-source software architecture for building safety-centric autonomous aircraft, with capabilities like detect-and-avoid, geofencing, and autonomous resolution maneuvers.
 
-- Developed and maintained safety-critical avionics software and hardware for research into intelligent flight management for unmanned aerial vehicles, including an autonomous operating system.
+- Interned for two summers (2017 and 2018) at NASA Langley Research Center in Hampton, Virginia, working on ICAROUS.
+- Developed safety-critical avionics software and hardware for intelligent flight management research on unmanned aircraft.
+- Soldered a temperature sensor onto a fixed-wing UAV and integrated its live engine temperature readings into in-flight telemetry.
 - Led requirements, development, testing, and deployment of a networked application for monitoring real-time air traffic and flight statistics.

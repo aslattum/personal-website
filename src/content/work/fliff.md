@@ -11,7 +11,7 @@ tags:
   - Real-time
 ---
 
-I worked on Fliff’s iOS app, a social sportsbook where live odds and scores update in real time.
+Fliff is a social sportsbook app where sports fans make picks on spreads, totals, and parlays, climb leaderboards, and compete with friends.
 
 - Used GraphQL and Swift concurrency (actors and async/await) to power real-time live data updates free of data races.
 - Built SwiftUI components with Lottie and built-in animations to create engaging, dynamic interfaces.

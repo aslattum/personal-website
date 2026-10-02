@@ -51,11 +51,22 @@ const { data, id } = project;
 		font-family: var(--font-brand);
 		font-size: var(--text-lg);
 		font-weight: 500;
-		transition: box-shadow var(--theme-transition);
+		transition:
+			box-shadow var(--theme-transition),
+			border-color 0.25s ease,
+			transform 0.25s ease;
 	}
 
 	.card:hover {
 		box-shadow: var(--shadow-md);
+		border-color: var(--accent-regular);
+		transform: translateY(-4px);
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.card:hover {
+			transform: none;
+		}
 	}
 
 	/* The company name links to the role page; stretch its hit area over the

@@ -11,7 +11,7 @@ tags:
   - Tech Lead
 ---
 
-I was the lead mobile engineer on Addepar’s app, which gives financial advisors and their clients a live view of net worth, performance, and asset allocation.
+Addepar is a wealth management platform used by financial advisors and their clients. Its app gives them an up-to-date view of net worth, performance, and asset allocation, down to individual asset classes and transactions.
 
 - Built a new charting framework on Swift Charts that improved interaction and accessibility, cleared 50+ bug tickets, and raised charting test coverage from 5% to over 95%.
 - Led a testing effort that raised overall coverage from 15% to over 50%, improving release confidence and reaching 99.99% crash-free sessions.

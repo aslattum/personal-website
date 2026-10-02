@@ -5,11 +5,13 @@ import { site } from '../data/site';
 ---
 
 <aside>
-	<h2>Let’s build better software together.</h2>
-	<CallToAction href={`mailto:${site.email}`}>
-		Send me an email
-		<Icon icon="paper-plane-tilt" size="1.2em" />
-	</CallToAction>
+	<h2 data-reveal>Let’s build better software together.</h2>
+	<div data-reveal style="--reveal-delay: 150ms">
+		<CallToAction href={`mailto:${site.email}`}>
+			Send me an email
+			<Icon icon="paper-plane-tilt" size="1.2em" />
+		</CallToAction>
+	</div>
 </aside>
 
 <style>

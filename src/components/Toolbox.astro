@@ -4,8 +4,8 @@ import { skills } from '../data/site';
 
 <div class="toolbox">
 	{
-		skills.map(({ group, items }) => (
-			<div class="group">
+		skills.map(({ group, items }, i) => (
+			<div class="group" data-reveal style={`--reveal-delay: ${i * 100}ms`}>
 				<h4>{group}</h4>
 				<ul>
 					{items.map((item) => (
