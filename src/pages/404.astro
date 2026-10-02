@@ -1,8 +1,23 @@
 ---
+import CallToAction from '../components/CallToAction.astro';
 import Hero from '../components/Hero.astro';
+import Icon from '../components/Icon.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<BaseLayout title="Not Found" description="404 Error — this page was not found">
-	<Hero title="Page Not Found" tagline="Not found" />
+<BaseLayout title="Page not found" description="This page doesn’t exist.">
+	<div class="not-found wrapper stack gap-8">
+		<Hero title="Page not found" tagline="This page took a wrong turn somewhere. Let’s get you back on track." />
+		<CallToAction href="/">
+			<Icon icon="arrow-left" size="1.2em" />
+			Back home
+		</CallToAction>
+	</div>
 </BaseLayout>
+
+<style>
+	.not-found {
+		align-items: center;
+		padding-block: 2rem 6rem;
+	}
+</style>

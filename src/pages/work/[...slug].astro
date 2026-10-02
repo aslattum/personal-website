@@ -71,7 +71,8 @@ const { Content } = await render(entry);
 	}
 
 	.back-link {
-		display: none;
+		display: block;
+		align-self: flex-start;
 	}
 
 	.details {
@@ -152,11 +153,6 @@ const { Content } = await render(entry);
 	}
 
 	@media (min-width: 50em) {
-		.back-link {
-			display: block;
-			align-self: flex-start;
-		}
-
 		.details {
 			flex-direction: row;
 			gap: 2.5rem;

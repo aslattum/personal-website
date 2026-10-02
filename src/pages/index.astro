@@ -92,7 +92,10 @@ const hasPortrait = fs.existsSync('public/assets/portrait.jpg');
 				</header>
 
 				<div class="gallery">
-					<PolaroidRow photos={interests.map(({ label, photo }) => ({ caption: label, photo }))} />
+					<PolaroidRow
+						entrance="toss"
+						photos={interests.map(({ label, photo }) => ({ caption: label, photo }))}
+					/>
 				</div>
 			</section>
 		</main>

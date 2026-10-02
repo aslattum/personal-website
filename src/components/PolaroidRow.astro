@@ -3,12 +3,14 @@ import Polaroid from './Polaroid.astro';
 
 interface Props {
 	photos: { caption: string; photo?: string }[];
+	/** How the photos animate in: tossed onto the table, or bursting out from the center. */
+	entrance?: 'toss' | 'burst';
 }
 
-const { photos } = Astro.props;
+const { photos, entrance = 'burst' } = Astro.props;
 ---
 
-<ul class="polaroids" data-reveal>
+<ul class:list={['polaroids', entrance]} data-reveal style={`--n: ${photos.length}`}>
 	{
 		photos.map(({ caption, photo }, i) => (
 			<li style={`--i: ${i}`}>
@@ -73,8 +75,17 @@ const { photos } = Astro.props;
 		}
 	}
 
-	/* With motion enabled, the photos are "dealt" onto the table one at a time
-	   when the row scrolls into view, then settle into their tilts. */
+	@media (min-width: 50em) {
+		.polaroids {
+			padding-block: 2.5rem 4rem;
+		}
+
+		.polaroids > li + li {
+			margin-left: -2.5rem;
+		}
+	}
+
+	/* Entrance animations, played once when the row scrolls into view. */
 	:global(.motion-ready) .polaroids[data-reveal] {
 		opacity: 1;
 		transform: none;
@@ -84,25 +95,67 @@ const { photos } = Astro.props;
 		opacity: 0;
 	}
 
-	:global(.motion-ready) .polaroids.is-visible > li {
-		animation: deal 0.75s cubic-bezier(0.2, 0.8, 0.3, 1.15) backwards;
-		animation-delay: calc(var(--i) * 140ms);
+	/* Burst: the photos start as a small stack in the middle of the row and
+	   burst out to their places. */
+	:global(.motion-ready) .burst.is-visible > li {
+		/* Distance from this photo's spot to the center of the row, in photo
+		   widths (each photo overlaps the previous one by roughly 14%). */
+		--from-center: calc(((var(--n) - 1) / 2 - var(--i)) * 86%);
+
+		animation: burst 0.7s cubic-bezier(0.2, 0.9, 0.3, 1.2) backwards;
+		animation-delay: calc(450ms + var(--i) * 40ms);
 	}
 
-	@keyframes deal {
+	@keyframes burst {
 		from {
 			opacity: 0;
-			transform: translateY(-5rem) rotate(calc(var(--tilt) * -2.5)) scale(1.12);
+			transform: translateX(var(--from-center)) translateY(1.5rem) rotate(0deg) scale(0.3);
+		}
+		30% {
+			opacity: 1;
 		}
 	}
 
-	@media (min-width: 50em) {
-		.polaroids {
-			padding-block: 2.5rem 4rem;
-		}
+	/* Toss: each photo is thrown onto the "table" one at a time, flying in
+	   spinning, skidding slightly past its spot, and settling into its tilt. */
+	.toss > li:nth-child(4n + 1) {
+		--throw-x: -60vw;
+		--throw-y: 18rem;
+		--throw-r: -55deg;
+	}
+	.toss > li:nth-child(4n + 2) {
+		--throw-x: 45vw;
+		--throw-y: 26rem;
+		--throw-r: 40deg;
+	}
+	.toss > li:nth-child(4n + 3) {
+		--throw-x: -35vw;
+		--throw-y: 30rem;
+		--throw-r: 65deg;
+	}
+	.toss > li:nth-child(4n + 4) {
+		--throw-x: 65vw;
+		--throw-y: 14rem;
+		--throw-r: -45deg;
+	}
 
-		.polaroids > li + li {
-			margin-left: -2.5rem;
+	:global(.motion-ready) .toss.is-visible > li {
+		animation: toss 0.8s cubic-bezier(0.15, 0.7, 0.3, 1) backwards;
+		animation-delay: calc(300ms + var(--i) * 180ms);
+	}
+
+	@keyframes toss {
+		from {
+			opacity: 0;
+			transform: translate(var(--throw-x), var(--throw-y)) rotate(var(--throw-r)) scale(1.15);
+		}
+		15% {
+			opacity: 1;
+		}
+		/* Skid a touch past the landing spot. */
+		75% {
+			transform: translate(calc(var(--throw-x) * -0.03), calc(var(--shift) - 0.25rem))
+				rotate(calc(var(--tilt) - var(--throw-r) * 0.08)) scale(1);
 		}
 	}
 </style>
